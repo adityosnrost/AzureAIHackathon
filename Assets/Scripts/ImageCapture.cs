@@ -68,20 +68,6 @@ public class ImageCapture : MonoBehaviour, IMixedRealityInputHandler
     }
 
     /// <summary>
-    /// Respond to Tap Input.
-    /// </summary>
-    private void TapHandler(TappedEventArgs obj)
-    {
-        if (!captureIsActive)
-        {
-            captureIsActive = true;
-
-            // Begin the capture loop
-            Invoke("ExecuteImageCaptureAndAnalysis", 0);
-        }
-    }
-
-    /// <summary>
     /// Begin process of image capturing and send to Azure Custom Vision Service.
     /// </summary>
     private void ExecuteImageCaptureAndAnalysis()
