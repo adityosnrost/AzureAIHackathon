@@ -14,10 +14,10 @@ public class ObjectRecognitionManager : MonoBehaviour
     /// Current threshold accepted for displaying the label
     /// Reduce this value to display the recognition more often
     /// </summary>
-    internal float probabilityThreshold = 0.3f;
+    internal float probabilityThreshold = 0.1f;
 
     public TextMesh DebugDisplay;
-    public string PrimaryText { get; private set; }
+    public string PrimaryText { get; set; }
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class ObjectRecognitionManager : MonoBehaviour
         Update_DebugDisplay();
     }
 
-    private void Update_DebugDisplay()
+    public void Update_DebugDisplay()
     {
         // Basic checks
         if (DebugDisplay == null)
@@ -55,8 +55,16 @@ public class ObjectRecognitionManager : MonoBehaviour
 
     public void ObjectAnalysisResult(AnalysisRootObject analysisObject)
     {
+        Debug.Log("Showing result . . .");
+        PrimaryText = "Showing result . . .";
+        Update_DebugDisplay();
+
         if (analysisObject.predictions != null)
         {
+            Debug.Log("Prediction is");
+            PrimaryText = "Prediction is . . .";
+            Update_DebugDisplay();
+
             // Sort the predictions to locate the highest one
             List<Prediction> sortedPredictions = new List<Prediction>();
             sortedPredictions = analysisObject.predictions.OrderBy(p => p.probability).ToList();
@@ -68,10 +76,10 @@ public class ObjectRecognitionManager : MonoBehaviour
                 PrimaryText = bestPrediction.tagName;
 
                 Update_DebugDisplay();
-
-                // Stop the analysis process
-                ImageCapture.Instance.ResetImageCapture();
             }
         }
+
+        // Stop the analysis process
+        ImageCapture.Instance.ResetImageCapture();
     }
 }

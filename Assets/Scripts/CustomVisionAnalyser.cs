@@ -42,6 +42,10 @@ public class CustomVisionAnalyser : MonoBehaviour
     {
         Debug.Log("Analyzing...");
 
+        ObjectRecognitionManager.Instance.PrimaryText = "Analyzing . . .";
+        ObjectRecognitionManager.Instance.Update_DebugDisplay();
+
+
         WWWForm webForm = new WWWForm();
 
         using (UnityWebRequest unityWebRequest = UnityWebRequest.Post(predictionEndpoint, webForm))
@@ -65,6 +69,9 @@ public class CustomVisionAnalyser : MonoBehaviour
             string jsonResponse = unityWebRequest.downloadHandler.text;
 
             Debug.Log("response: " + jsonResponse);
+
+            ObjectRecognitionManager.Instance.PrimaryText = "Receive response";
+            ObjectRecognitionManager.Instance.Update_DebugDisplay();
 
             // The response will be in JSON format, therefore it needs to be deserialized
             AnalysisRootObject analysisRootObject = new AnalysisRootObject();
