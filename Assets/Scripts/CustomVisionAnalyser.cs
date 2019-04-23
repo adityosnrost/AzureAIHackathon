@@ -73,19 +73,19 @@ public class CustomVisionAnalyser : MonoBehaviour
             ObjectRecognitionManager.Instance.PrimaryText = "Receive response";
             ObjectRecognitionManager.Instance.Update_DebugDisplay();
 
-            // The response will be in JSON format, therefore it needs to be deserialized
-            AnalysisRootObject analysisRootObject = new AnalysisRootObject();
-
-            analysisRootObject = JsonConvert.DeserializeObject<AnalysisRootObject>(jsonResponse);
-
-            ObjectRecognitionManager.Instance.ObjectAnalysisResult(analysisRootObject);
-
             //// The response will be in JSON format, therefore it needs to be deserialized
             //AnalysisRootObject analysisRootObject = new AnalysisRootObject();
 
-            //analysisRootObject = JsonUtility.FromJson<AnalysisRootObject>(jsonResponse);
+            //analysisRootObject = JsonConvert.DeserializeObject<AnalysisRootObject>(jsonResponse);
 
-            //Debug.Log("predictions id: " + analysisRootObject.id);
+            //ObjectRecognitionManager.Instance.ObjectAnalysisResult(analysisRootObject);
+
+            // The response will be in JSON format, therefore it needs to be deserialized
+            AnalysisRootObject analysisRootObject = new AnalysisRootObject();
+
+            analysisRootObject = JsonUtility.FromJson<AnalysisRootObject>(jsonResponse);
+
+            Debug.Log("predictions id: " + analysisRootObject.id);
 
             ObjectRecognitionManager.Instance.ObjectAnalysisResult(analysisRootObject);
         }
