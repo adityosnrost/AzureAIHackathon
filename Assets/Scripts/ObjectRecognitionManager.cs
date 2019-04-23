@@ -73,10 +73,16 @@ public class ObjectRecognitionManager : MonoBehaviour
 
             if (bestPrediction.probability > probabilityThreshold)
             {
-                PrimaryText = bestPrediction.tagName;
+                PrimaryText = bestPrediction.tagName + " : " + bestPrediction.probability.ToString();
 
                 Update_DebugDisplay();
             }
+        }
+        else
+        {
+            Debug.Log("Object is unknown");
+            PrimaryText = "Object is unknown";
+            Update_DebugDisplay();
         }
 
         // Stop the analysis process

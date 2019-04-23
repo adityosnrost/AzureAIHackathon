@@ -109,6 +109,9 @@ public class Iteration
 /// after submitting an image for analysis
 /// Includes Bounding Box
 /// </summary>
+/// 
+
+//[Serializable]
 public class AnalysisRootObject
 {
     public string id { get; set; }
@@ -126,6 +129,7 @@ public class BoundingBox
     public double height { get; set; }
 }
 
+//[Serializable]
 public class Prediction
 {
     public double probability { get; set; }
