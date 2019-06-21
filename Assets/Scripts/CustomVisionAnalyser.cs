@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class CustomVisionAnalyser : MonoBehaviour
     /// <summary>
     /// Insert your prediction endpoint here
     /// </summary>
-    private string predictionEndpoint = "https://southeastasia.api.cognitive.microsoft.com/customvision/v3.0/Prediction/e77eac83-c123-40e4-8968-b15fc0deec5b/detect/iterations/Iteration4/image";
+    private string predictionEndpoint = "https://southeastasia.api.cognitive.microsoft.com/customvision/v3.0/Prediction/e77eac83-c123-40e4-8968-b15fc0deec5b/detect/iterations/Iteration5/image";
 
     /// <summary>
     /// Bite array of the image to submit for analysis
@@ -84,6 +85,10 @@ public class CustomVisionAnalyser : MonoBehaviour
             AnalysisRootObject analysisRootObject = new AnalysisRootObject();
 
             analysisRootObject = JsonUtility.FromJson<AnalysisRootObject>(jsonResponse);
+            //analysisRootObject = JsonConvert.DeserializeObject<AnalysisRootObject>(jsonResponse);
+
+            ObjectRecognitionManager.Instance.PrimaryText = "predictions id: " + analysisRootObject.id;
+            ObjectRecognitionManager.Instance.Update_DebugDisplay();
 
             Debug.Log("predictions id: " + analysisRootObject.id);
 

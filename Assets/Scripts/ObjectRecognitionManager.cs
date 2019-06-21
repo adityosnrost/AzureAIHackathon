@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.Input;
+using Microsoft.MixedReality.Toolkit.Utilities;
 
 public class ObjectRecognitionManager : MonoBehaviour
 {
@@ -14,10 +15,18 @@ public class ObjectRecognitionManager : MonoBehaviour
     /// Current threshold accepted for displaying the label
     /// Reduce this value to display the recognition more often
     /// </summary>
-    internal float probabilityThreshold = 0.1f;
+    internal float probabilityThreshold = 0.5f;
 
     public TextMesh DebugDisplay;
     public string PrimaryText { get; set; }
+
+
+    /// <summary>
+    /// Result Panel
+    /// </summary>
+    public List<GameObject> resultPanels;
+    public GameObject panelReference;
+    public float panelSpawnDistance = 1.0f;
 
     private void Awake()
     {
@@ -73,9 +82,22 @@ public class ObjectRecognitionManager : MonoBehaviour
 
             if (bestPrediction.probability > probabilityThreshold)
             {
-                PrimaryText = bestPrediction.tagName + " : " + bestPrediction.probability.ToString();
+                //PrimaryText = bestPrediction.tagName + " : " + bestPrediction.probability.ToString();
+                PrimaryText = "Take a picture to be analyzed";
 
                 Update_DebugDisplay();
+
+                GameObject resultPanel = Instantiate(panelReference, CameraCache.Main.transform.position, CameraCache.Main.transform.rotation);
+                Vector3 toPosition = CameraCache.Main.transform.position + CameraCache.Main.transform.forward;
+                resultPanel.transform.position = toPosition;
+
+                PredictionResultData resultData = new PredictionResultData();
+                resultData.objectName = bestPrediction.tagName;
+                resultData.confidentResult = bestPrediction.probability.ToString();
+
+                StateManagement.Instance.lastestPredictionResult = resultData;
+
+                resultPanels.Add(resultPanel);
             }
         }
         else
