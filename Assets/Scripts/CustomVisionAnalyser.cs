@@ -20,7 +20,7 @@ public class CustomVisionAnalyser : MonoBehaviour
     /// <summary>
     /// Insert your prediction endpoint here
     /// </summary>
-    private string predictionEndpoint = "https://southeastasia.api.cognitive.microsoft.com/customvision/v3.0/Prediction/e77eac83-c123-40e4-8968-b15fc0deec5b/detect/iterations/Iteration5/image";
+    private string predictionEndpoint = "https://southeastasia.api.cognitive.microsoft.com/customvision/v3.0/Prediction/e77eac83-c123-40e4-8968-b15fc0deec5b/detect/iterations/Iteration6/image";
 
     /// <summary>
     /// Bite array of the image to submit for analysis
